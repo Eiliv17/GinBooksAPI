@@ -1,6 +1,14 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/Eiliv17/GinLibraryAPI/initializers"
+	"github.com/gin-gonic/gin"
+)
+
+func init() {
+	initializers.LoadEnvVariables()
+	initializers.ConnectToDB()
+}
 
 func main() {
 	r := gin.Default()
@@ -11,5 +19,5 @@ func main() {
 		})
 	})
 
-	r.Run(":8080") // listen and serve on 0.0.0.0:8080
+	r.Run() // listen and serve on localhost with port defined in .env
 }
