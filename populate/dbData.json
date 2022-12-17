@@ -1,0 +1,42 @@
+[
+    {
+        "title":"Build Systems With Go: Everything a Gopher must know",
+        "authors":["Juan M. Tirado"],
+        "publicationDate": "2021-05-10",
+        "publisher":"Independently published",
+        "language":"English",
+        "isbn13":"979-8502040150"
+    },
+    {
+        "title":"Learning Go: An Idiomatic Approach to Real-World Go Programming",
+        "authors":["Jon Bodner"],
+        "publicationDate": "2021-04-06",
+        "publisher":"O'Reilly Media",
+        "language":"English",
+        "isbn13":"978-1492077213"
+    },
+    {
+        "title":"Graphic Go Algorithms: Graphically learn data structures and algorithms better than before (Easy Learning Golang Programming Foundation Data Structures and Algorithms)",
+        "authors":["Yang Hu"],
+        "publicationDate": "2020-06-18",
+        "publisher":"Independently published",
+        "language":"English",
+        "isbn13":"979-8655038363"
+    },
+    {
+        "title":"Go Programming Language, The (Addison-Wesley Professional Computing Series)",
+        "authors":["Alan Donovan", "Brian Kernighan"],
+        "publicationDate": "2015-10-26",
+        "publisher":"Addison-Wesley Professional",
+        "language":"English",
+        "isbn13":"978-0134190440"
+    },
+    {
+        "title":"Powerful Command-Line Applications in Go: Build Fast and Maintainable Tools",
+        "authors":["Ricardo Gerardi"],
+        "publicationDate": "2022-01-11",
+        "publisher":"Pragmatic Bookshelf",
+        "language":"English",
+        "isbn13":"978-1680506969"
+    }
+]
