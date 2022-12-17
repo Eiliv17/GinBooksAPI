@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/Eiliv17/GinLibraryAPI/initializers"
-	"github.com/Eiliv17/GinLibraryAPI/models"
+	"github.com/Eiliv17/GinBooksAPI/initializers"
+	"github.com/Eiliv17/GinBooksAPI/models"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Eiliv17/GinLibraryAPI/controllers"
-	"github.com/Eiliv17/GinLibraryAPI/initializers"
+	"github.com/Eiliv17/GinBooksAPI/controllers"
+	"github.com/Eiliv17/GinBooksAPI/initializers"
 	"github.com/gin-gonic/gin"
 )
 
