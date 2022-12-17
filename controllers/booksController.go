@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"context"
-	"log"
 	"net/http"
 	"os"
 	"time"
@@ -66,7 +65,10 @@ func GetBook(c *gin.Context) {
 	var book models.Book
 	err = result.Decode(&book)
 	if err != nil {
-		log.Fatal(err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": "No book with that ID",
+		})
+		return
 	}
 
 	c.IndentedJSON(http.StatusOK, book)
