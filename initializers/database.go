@@ -14,6 +14,7 @@ import (
 var DB *mongo.Client
 
 func ConnectToDB() {
+	var err error
 
 	// Getting the Database URI from the environment variables
 	URI := os.Getenv("MONGODB_URI")
@@ -22,7 +23,7 @@ func ConnectToDB() {
 	}
 
 	// Connecting to the database
-	DB, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(URI))
+	DB, err = mongo.Connect(context.TODO(), options.Client().ApplyURI(URI))
 	if err != nil {
 		log.Fatal("Error connecting to Database")
 	}
