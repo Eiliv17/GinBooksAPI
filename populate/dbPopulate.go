@@ -8,6 +8,8 @@ import (
 	"time"
 
 	"github.com/Eiliv17/GinLibraryAPI/initializers"
+	"github.com/Eiliv17/GinLibraryAPI/models"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func init() {
@@ -15,46 +17,23 @@ func init() {
 	initializers.ConnectToDB()
 }
 
-// custom time marshaler and unmarshaler
-type CustomTime struct {
-	time.Time
-}
-
-func (t CustomTime) MarshalJSON() ([]byte, error) {
-	out := t.Time.Format("2006-01-02")
-	return []byte(`"` + out + `"`), nil
-}
-
-func (t *CustomTime) UnmarshalJSON(b []byte) error {
-	if string(b) == "null" {
-		return nil
-	}
-	nt, err := time.Parse(`"`+"2006-01-02"+`"`, string(b))
-	if err != nil {
-		return err
-	}
-	*t = CustomTime{nt}
-	return nil
-}
-
-// book struct for database
-type Book struct {
-	Title           string     `bson:"title" json:"title"`
-	Authors         []string   `bson:"authors" json:"authors"`
-	PublicationDate CustomTime `bosn:"publicationDate" json:"publicationDate"`
-	Publisher       string     `bson:"publisher" json:"publisher"`
-	Language        string     `bson:"language" json:"language"`
-	ISBN13          string     `bson:"isbn13" json:"isbn13"`
-}
-
 func main() {
+	// struct to decode json
+	booksData := []struct {
+		Title           string   `json:"title" binding:"required"`
+		Authors         []string `json:"authors" binding:"required"`
+		PublicationDate string   `json:"publicationDate" binding:"required"`
+		Publisher       string   `json:"publisher" binding:"required"`
+		Language        string   `json:"language" binding:"required"`
+		ISBN13          string   `json:"isbn13" binding:"required"`
+	}{}
+
 	data, err := os.ReadFile("./populate/dbData.json")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	var books []Book
-	json.Unmarshal(data, &books)
+	json.Unmarshal(data, &booksData)
 
 	// gets the database name and collection name from env variables
 	dbname := os.Getenv("DB_NAME")
@@ -62,8 +41,21 @@ func main() {
 	coll := initializers.DB.Database(dbname).Collection(collname)
 
 	// inserts the books from json
-	for _, book := range books {
-		_, err := coll.InsertOne(context.TODO(), book)
+	for _, book := range booksData {
+		pubdate, err := time.Parse("2006-01-02", book.PublicationDate)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		_, err = coll.InsertOne(context.TODO(), models.Book{
+			Title:           book.Title,
+			Authors:         book.Authors,
+			PublicationDate: pubdate,
+			Publisher:       book.Publisher,
+			Language:        book.Language,
+			ISBN13:          book.ISBN13,
+			ObjectID:        primitive.NewObjectIDFromTimestamp(time.Now()),
+		})
 		if err != nil {
 			log.Fatal(err)
 		}
